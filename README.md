@@ -71,6 +71,50 @@ public class Solution {
 }
 ```
 
+## Another way to write it :
+```java
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws Exception{
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String line = br.readLine();
+        int N = Integer.parseInt(line);
+        line = br.readLine();
+        String[] numbers = line.split(" ");
+        int[] nums = new int[N];
+        for(int i = 0; i < N; i++) {
+            nums[i] = Integer.parseInt(numbers[i]);
+        }
+        int[] result = new int[N];
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.push(nums[N-1]);
+        result[N-1] = -1;
+        for(int i = N-2; i >= 0; i--) {
+            while(!stack.isEmpty()) {
+                if(stack.peek() <= nums[i]) {
+                   stack.pop();  
+                } else {
+                   result[i] = stack.peek();
+                   break;
+                }
+            }
+            if(stack.isEmpty()) {
+                result[i] = -1;
+            }
+            stack.push(nums[i]);
+        }
+        for(int i = 0; i < nums.length; i++) {
+            System.out.println(nums[i] + " " + result[i]);
+        }
+    }
+}
+```
+
 # References :
  1. https://www.youtube.com/watch?v=rSf9vPtKcmI (Hindi, good one)
 
